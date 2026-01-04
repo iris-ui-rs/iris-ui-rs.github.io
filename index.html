@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris UI - Pure Rust UI Framework</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌸 Iris UI</h1>
+            <p class="tagline">Pure Rust UI Framework</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="philosophy">
+            <h2>Philosophy</h2>
+            <blockquote>
+                <p>The UI is a projection of a virtual world onto the screen.</p>
+            </blockquote>
+            <p>
+                Iris UI embraces a unique approach to building user interfaces: instead of thinking about widgets and layouts, 
+                you model your application as a virtual world. The UI becomes a natural projection of this world onto the screen.
+            </p>
+        </section>
+
+        <section class="about">
+            <h2>About Iris UI</h2>
+            <p>
+                Iris UI is a pure Rust UI framework that lets you build interfaces by modeling virtual worlds. 
+                Using Rust's type system and ergonomic syntax, you can create rich, interactive applications 
+                with a declarative approach.
+            </p>
+        </section>
+
+        <section class="examples">
+            <h2>Examples</h2>
+            
+            <div class="example">
+                <h3>Clock Example</h3>
+                <p>A simple clock that updates the time every few milliseconds, demonstrating the World, Board, Card, Row, Text, and TextTimer components.</p>
+                <pre><code>//! A simple little clock that updates the time every few milliseconds.
+
+use iris_ui::prelude::*;
+
+fn world() -> World {
+    World {
+        root: Board {
+            width: VIEWPORT_WIDTH,
+            height: VIEWPORT_HEIGHT,
+            h_align: HAlign::Center,
+            v_align: VAlign::Middle,
+            children: vec![Card {
+                children: vec![
+                    Row {
+                        children: vec![Text{
+                            text: "Carpe diem 🎉",
+                            ..default()
+                        }.into()],
+                        ..default()
+                    },
+                    Row {
+                        children: vec![TextTimer{
+                            format: "%H:%M:%S",
+                            ..default()
+                        }.into()],
+                        ..default()
+                    },
+                ],
+                ..default()
+            }],
+            ..default()
+        }.into(),
+    }
+}
+
+fn main() {
+    iris_ui::launch(world);
+}</code></pre>
+            </div>
+
+            <div class="example">
+                <h3>Lovely Girl Example</h3>
+                <p>A minimal example demonstrating how to create custom widgets and model domain-specific virtual worlds.</p>
+                <pre><code>//! A minimal example for `iris-ui` demonstrating basic usage.
+
+use iris_ui::prelude::*;
+
+#[derive(IntoWidget)]
+struct LovelyGirl {
+    girl: Girl,
+}
+
+fn lovely_girl() -> LovelyGirl {
+    LovelyGirl {
+            girl: Girl {
+                hair_color: HairColor::Black,
+                skin_color: SkinColor::Yellow,
+                body_type: BodyType::Slim,
+                appearance: Appearance::Beautiful,
+                every_morning: vec![
+                    GirlActions::SayHi,
+                    GirlActions::PrepareBreakfast,
+                ],
+                ..default()
+            },
+    }
+}
+
+fn world() -> World {
+    World {
+        root: lovely_girl().into(),
+        ..default()
+    }
+}
+
+fn main() {
+    iris_ui::launch(world);
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="getting-started">
+            <h2>Getting Started</h2>
+            <p>To run the examples:</p>
+            <pre><code>cargo run --example clock
+cargo run --example lovely_girl</code></pre>
+        </section>
+
+        <section class="links">
+            <h2>Resources</h2>
+            <ul>
+                <li><a href="https://github.com/iris-ui-rs/iris-ui" target="_blank">GitHub Repository</a></li>
+                <li><a href="https://github.com/iris-ui-rs/iris-ui/tree/main/examples" target="_blank">More Examples</a></li>
+                <li><a href="https://crates.io/crates/iris-ui" target="_blank">Crates.io</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Iris UI Contributors. Licensed under the Apache License 2.0.</p>
+        </div>
+    </footer>
+</body>
+</html>
